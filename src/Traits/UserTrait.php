@@ -6,10 +6,10 @@ use Carbon\Carbon;
 use ConfrariaWeb\Contact\Traits\ContactTrait;
 use ConfrariaWeb\File\Traits\FileTrait;
 use ConfrariaWeb\Historic\Traits\HistoricTrait;
-use ConfrariaWeb\Integration\Traits\IntegrationTrait;
+//use ConfrariaWeb\Integration\Traits\IntegrationTrait;
 use ConfrariaWeb\Location\Traits\LocationTrait;
 use ConfrariaWeb\Option\Traits\OptionTrait;
-use ConfrariaWeb\Task\Models\Task;
+//use ConfrariaWeb\Task\Models\Task;
 use ConfrariaWeb\Task\Traits\TaskTrait;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
@@ -22,9 +22,9 @@ trait UserTrait
     use FileTrait;
     use HasRelationships;
     use HistoricTrait;
-    use IntegrationTrait;
+    //use IntegrationTrait;
     use OptionTrait;
-    use TaskTrait;
+    //use TaskTrait;
 
     public function options()
     {
