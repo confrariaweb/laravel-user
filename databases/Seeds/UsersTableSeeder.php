@@ -1,4 +1,5 @@
 <?php
+namespace ConfrariaWeb\User\Databases\Seeds;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -6,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-class UsersTableSeeder extends Seeder
+class DatabaseSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -32,7 +33,7 @@ class UsersTableSeeder extends Seeder
             [
                 'name' => 'Rafael Zingano',
                 'email' => 'rafazingano@gmail.com',
-                'password' => 'password',
+                'password' => 'secret',
             ]
         ];
         foreach ($users as $user) {
