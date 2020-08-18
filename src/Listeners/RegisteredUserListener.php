@@ -9,7 +9,7 @@ class RegisteredUserListener implements ShouldQueue
 {
     public function handle($event)
     {
-        $event->user->notify(new UserRegisteredNotification());
+        //$event->user->notify(new UserRegisteredNotification());
     }
 
 }

@@ -49,19 +49,9 @@
         </div>
     </div>
 
-    @if (isset($user))
-        @foreach ($user->options as $option)
-            <div class="col-6">
-                {!! option_input($user, $option) !!}
-            </div>
-        @endforeach
-    @endif
-
     <div class="col-12">
         <div class="form-group">
-            @formButtons()
-            Form Buttons
-            @endformButtons
+
         </div>
     </div>
 

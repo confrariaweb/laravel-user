@@ -3,6 +3,8 @@
 namespace ConfrariaWeb\User\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CheckPackage extends Command
@@ -51,6 +53,15 @@ class CheckPackage extends Command
             $this->checkAndCreateTable($table);
             foreach ($columns as $column) {
                 $this->checkAndCreateColumn($table, $column);
+            }
+        }
+
+        $usersCount = DB::table('users')->count();
+        if($usersCount <= 0){
+            $this->info('<fg=red;bg=white>Parece que você nao tem nenhum usuário criado ainda...</>');
+            if ($this->confirm('Deseja rodar os SEEDs do pacote users?')) {
+                //Artisan::call('email:send 1 --queue=default');
+                //$this->info('<fg=black;bg=white>Seeds criados com sucesso...</>');
             }
         }
 

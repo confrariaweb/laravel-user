@@ -4,22 +4,8 @@ return [
     'layout' => env('CW_LAYOUT', 'layouts.app'),
     'views' => env('CW_VIEWS', 'user::'),
 
-    'datatable' => [
-        'id' => 'datatable_tasks',
-        'items' => [
-            ['data' => 'name', 'name' => 'name', 'title' => 'Nome'],
-            ['data' => 'email', 'name' => 'email', 'title' => 'E-mail'],
-            ['data' => 'roles', 'render' => 'implode.display_name', 'name' => 'roles', 'title' => 'Perfis'],
-            ['data' => 'status.name', 'render' => 'object', 'name' => 'status.name', 'title' => 'Status']
-        ],
-        'url' => 'users',
-        'slug' => 'users',
-        'btns' => [
-            'show' => 'Ver',
-            'edit' => 'Editar',
-            'destroy' => 'Deletar',
-        ]
-    ],
+    'default_role' => 2,
+
     'request' => [
         'messages' => [
             'name.required' => 'O nome é necessário para criar um novo registro',

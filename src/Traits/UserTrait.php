@@ -2,29 +2,20 @@
 
 namespace ConfrariaWeb\User\Traits;
 
-use Carbon\Carbon;
-use ConfrariaWeb\Contact\Traits\ContactTrait;
-use ConfrariaWeb\File\Traits\FileTrait;
-use ConfrariaWeb\Historic\Traits\HistoricTrait;
-//use ConfrariaWeb\Integration\Traits\IntegrationTrait;
-use ConfrariaWeb\Location\Traits\LocationTrait;
-use ConfrariaWeb\Option\Traits\OptionTrait;
-//use ConfrariaWeb\Task\Models\Task;
-use ConfrariaWeb\Task\Traits\TaskTrait;
+use ConfrariaWeb\Entrust\Traits\EntrustTrait;
+use ConfrariaWeb\User\Scopes\UserOrderByScope;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\DB;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 trait UserTrait
 {
-    use LocationTrait;
-    use ContactTrait;
-    use FileTrait;
     use HasRelationships;
-    use HistoricTrait;
-    //use IntegrationTrait;
-    use OptionTrait;
-    //use TaskTrait;
+    use EntrustTrait;
+
+    protected static function booted()
+    {
+        static::addGlobalScope(new UserOrderByScope);
+    }
 
     public function options()
     {
@@ -61,43 +52,7 @@ trait UserTrait
     public function steps()
     {
         return $this->belongsToMany('ConfrariaWeb\Crm\Models\Step', 'crm_step_user');
-    }
-
-    /*
-     * Etapas vinculadas aos perfis do usuario
-     * Metodo utilizado somente quando conter
-     * o pacote "confrariaweb/laravel-crm".
-     */
-    public function roleSteps()
-    {
-        return $this->hasManyDeep(
-            'ConfrariaWeb\Crm\Models\Step',
-            [Config::get('cw_entrust.role_user_table'), Config::get('cw_entrust.role'), 'crm_role_step']
-        )->distinct();
-    }
-
-    public function roles()
-    {
-        return $this->belongsToMany(Config::get('cw_entrust.role'), Config::get('cw_entrust.role_user_table'), Config::get('cw_entrust.user_foreign_key'));
-    }
-
-    public function permissions()
-    {
-        return $this->hasManyDeep(
-            Config::get('cw_entrust.permission'),
-            [Config::get('cw_entrust.role_user_table'), Config::get('cw_entrust.role'), Config::get('cw_entrust.permission_role_table')]
-        );
-    }
-
-    public function hasRole($role)
-    {
-        return $this->roles->contains('name', $role);
-    }
-
-    public function hasPermission($permission)
-    {
-        return ($this->roles->contains('name', 'admin') || $this->permissions->contains('name', $permission));
-    }
+    } 
 
     public function status()
     {
@@ -133,7 +88,8 @@ trait UserTrait
 
     function avatar()
     {
-        return ($this->files()->count() > 0) ? $this->files()->orderBy('created_at', 'desc')->first()->url : $this->get_gravatar();
+        return $this->get_gravatar();
+        //return ($this->files()->count() > 0) ? $this->files()->orderBy('created_at', 'desc')->first()->url : $this->get_gravatar();
     }
 
     function get_gravatar($email = null, $s = 80, $d = 'mp', $r = 'g', $img = false, $atts = array())

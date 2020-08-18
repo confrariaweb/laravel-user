@@ -9,7 +9,7 @@ class CreateUsersIndicationsTable extends Migration
 
     public function up()
     {
-        if (!Schema::hasTable('user_indications')) {
+        if (!Schema::hasTable('user_indications') && Schema::hasTable('users')) {
 
             Schema::create('user_indications', function (Blueprint $table) {
                 $table->unsignedBigInteger('indicated_id');

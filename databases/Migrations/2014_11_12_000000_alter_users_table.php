@@ -22,18 +22,23 @@ class AlterUsersTable extends Migration
                     ->default(null)
                     ->after('email');
 
+                $table->text('options')
+                    ->nullable()
+                    ->default(null)
+                    ->after('settings');
+
                 $table->string('api_token', 80)
                     ->after('password')
                     ->unique()
                     ->nullable()
                     ->default(null);
 
-                $table->softDeletes();
-
                 $table->foreign('status_id')
                     ->references('id')
                     ->on('user_statuses')
                     ->onDelete('cascade');
+
+                $table->softDeletes();
             });
         }
     }

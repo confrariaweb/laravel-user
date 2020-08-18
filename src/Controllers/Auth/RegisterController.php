@@ -28,7 +28,8 @@ class RegisterController extends Controller {
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    //rotected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/admin';
 
     /**
      * Create a new controller instance.
@@ -68,7 +69,7 @@ class RegisterController extends Controller {
     }
 
     public function showRegistrationForm() {
-        return view('templateAdminDefault::auth.register');
+        return view(config('cw_user.views') . 'auth.register');
     }
 
 }

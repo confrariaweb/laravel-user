@@ -22,7 +22,7 @@ class ForgotPasswordController extends Controller
     
     public function showLinkRequestForm()
     {
-        return view('templateAdminDefault::auth.passwords.reset');
+        return view(config('cw_user.views') . 'auth.passwords.reset');
     }
     
     

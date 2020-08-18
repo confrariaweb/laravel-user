@@ -18,7 +18,7 @@ class UserOrderByScope implements Scope
     public function apply(Builder $builder, Model $model)
     {
         if (!app()->runningInConsole()) {
-            $builder->orderBy('users.id', 'asc');
+            $builder->orderBy('users.name', 'asc');
         }
     }
 }

@@ -10,7 +10,7 @@ Route::middleware(['auth:api'])
             ->prefix('users')
             ->namespace('ConfrariaWeb\User\Controllers')
             ->group(function () {
-                Route::get('datatable', 'UserController@datatable')->name('datatable');
+                //Route::get('datatable', 'UserController@datatable')->name('datatable');
                 Route::get('select2', 'UserController@select2')->name('select2');
                 Route::name('statuses.')
                     ->prefix('statuses')

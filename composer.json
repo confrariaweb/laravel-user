@@ -15,18 +15,12 @@
             "email": "confrariaweb@gmail.com"
         }
     ],
-    "require": {        
-        "confrariaweb/laravel-contact": "dev-master",
-        "confrariaweb/laravel-dashboard": "dev-master",
-        "confrariaweb/laravel-datatable": "dev-master",
+    "require": {
         "confrariaweb/laravel-entrust": "dev-master",
-        "confrariaweb/laravel-file": "dev-master",
-        "confrariaweb/laravel-historic": "dev-master",
-        "confrariaweb/laravel-location": "dev-master",
         "confrariaweb/laravel-option": "dev-master",
-        "confrariaweb/laravel-select2": "dev-master",
         "confrariaweb/laravel-vendor": "dev-master",
         "laravelcollective/html": ">=6.0",
+        "yajra/laravel-datatables-oracle": "~9.0",
         "staudenmeir/eloquent-has-many-deep" : ">=1.11"
     },
     "autoload": {

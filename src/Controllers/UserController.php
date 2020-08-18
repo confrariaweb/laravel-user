@@ -8,6 +8,9 @@ use ConfrariaWeb\User\Resources\Select2UserResource;
 use ConfrariaWeb\User\Resources\UserResource;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Yajra\DataTables\Facades\DataTables;
+use App\User;
+use Collective\Html\Eloquent\FormAccessible;
 
 class UserController extends Controller
 {
@@ -26,22 +29,34 @@ class UserController extends Controller
         return back()->withInput()->with('status', 'Token alterado com sucesso');
     }
 
-    public function datatable(Request $request)
-    {
-        $data = $request->all();
-        $data['where'] = [];
-        if (isset($data['search']['value'])) {
-            $data['where']['name'] = $data['search']['value'];
-            $data['orWhere']['email'] = $data['search']['value'];
-        }
-
-        $datatable = resolve('UserService')->datatable($data);
-        return (UserResource::collection($datatable['data']))
-            ->additional([
-                'draw' => $datatable['draw'],
-                'recordsTotal' => $datatable['recordsTotal'],
-                'recordsFiltered' => $datatable['recordsFiltered']
-            ]);
+    public function datatables(){
+        $users = resolve('UserService')->all();
+        return Datatables::of($users)
+        ->addColumn('roles', function (User $user) {
+            return $user->roles->map(function($role) {
+                return $role->display_name;
+            })->implode('<br>');
+        })
+        ->addColumn('action', function ($user) {
+            return '<div class="btn-group btn-group-sm float-right" role="group">
+                <a href="'.route('admin.users.show', $user->id).'" class="btn btn-sm btn-info">
+                    <i class="glyphicon glyphicon-eye"></i> Ver
+                </a>
+                <a href="'.route('admin.users.edit', $user->id).'" class="btn btn-sm btn-primary">
+                    <i class="glyphicon glyphicon-edit"></i> Editar
+                </a>
+                <a class="btn btn-sm btn-danger" href="'.route('admin.users.destroy', $user->id).'" onclick="event.preventDefault();
+                    document.getElementById(\'users-destroy-form\').submit();">
+                    Deletar
+                </a>
+                <form id="users-destroy-form" action="'.route('admin.users.destroy', $user->id).'" method="POST" style="display: none;">
+                    @csrf
+                    @method(\'DELETE\')
+                    <input type="hidden" name="id" value="'.$user->id.'">
+                </form>
+            </div>';
+        })
+        ->make();
     }
 
     public function select2(Request $request)

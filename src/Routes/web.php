@@ -22,6 +22,8 @@ Route::namespace('ConfrariaWeb\User\Controllers')
                 Route::resource('statuses', 'UserStatusController');
 
                 Route::post('token/generate/{id}', 'UserController@apiTokenGenerate')->name('token.generate');
+            
+                Route::get('datatable', 'UserController@datatables')->name('datatables');
             });
 
             Route::resource('users', 'UserController');

@@ -40,6 +40,6 @@ class LoginController extends Controller
     
     public function showLoginForm()
     {
-        return view('templateAdminDefault::auth.login');
+        return view(config('cw_user.views') . 'auth.login');
     }
 }

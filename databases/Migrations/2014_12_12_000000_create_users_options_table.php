@@ -9,7 +9,7 @@ class CreateUsersOptionsTable extends Migration
 
     public function up()
     {
-        if (!Schema::hasTable('option_user')) {
+        if (!Schema::hasTable('option_user') && Schema::hasTable('options')) {
 
             Schema::create('option_user', function (Blueprint $table) {
                 $table->unsignedBigInteger('option_id');
