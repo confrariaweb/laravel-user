@@ -14,11 +14,23 @@ use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
 use ConfrariaWeb\User\Listeners\CreatedUserListener;
+use Symfony\Component\EventDispatcher\DependencyInjection\RegisterListenersPass;
+use Illuminate\Auth\Events\Authenticated;
+use Illuminate\Auth\Events\Logout;
+use ConfrariaWeb\User\Listeners\CreateAccountCache;
+use ConfrariaWeb\User\Listeners\DestroyAccountCache;
 
 class UserEventServiceProvider extends ServiceProvider
 {
 
     protected $listen = [
+        Authenticated::class => [
+            CreateAccountCache::class
+        ],
+        Logout::class => [
+            DestroyAccountCache::class
+        ],
+        /*
         Registered::class => [
             RegisteredUserListener::class
         ],
@@ -35,6 +47,7 @@ class UserEventServiceProvider extends ServiceProvider
             UploadFileListener::class,
             CreatedHistoricUserListener::class,
         ],
+        */
     ];
 
     public function boot()

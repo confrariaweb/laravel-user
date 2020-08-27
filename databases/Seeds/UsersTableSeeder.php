@@ -5,7 +5,6 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,13 +21,6 @@ class DatabaseSeeder extends Seeder
 
     private function createUsers()
     {
-        $statuses = ['active', 'inactive'];
-        foreach ($statuses as $status) {
-            DB::table('user_statuses')->insert([
-                'name' => $status,
-                'slug' => $status
-            ]);
-        }
         $users = [
             [
                 'name' => 'Rafael Zingano',
@@ -37,11 +29,13 @@ class DatabaseSeeder extends Seeder
             ]
         ];
         foreach ($users as $user) {
-            DB::table('users')->insert([
-                'name' => $user['name'],
-                'email' => $user['email'],
-                'password' => Hash::make($user['password']),
-            ]);
+            if (DB::table('users')->where('email', $user['email'])->doesntExist()) {
+                DB::table('users')->insert([
+                    'name' => $user['name'],
+                    'email' => $user['email'],
+                    'password' => Hash::make($user['password']),
+                ]);
+            }
         }
     }
 

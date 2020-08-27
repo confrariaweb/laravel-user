@@ -19,7 +19,6 @@ class UserController extends Controller
     public function __construct()
     {
         $this->data = [];
-        $this->data['statuses'] = resolve('UserStatusService')->pluck();
         $this->data['roles'] = resolve('RoleService')->pluck();
     }
 

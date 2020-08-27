@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-12">
                 {!! Form::open(['route' => 'admin.users.store', 'files' => true, 'class' => 'horizontal-form']) !!}
-                @include('user::users.partials.form')
+                    @include('user::users.partials.form')
                 {!! Form::close() !!}
             </div>
         </div>

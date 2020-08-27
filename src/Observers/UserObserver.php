@@ -12,9 +12,7 @@ class UserObserver
     public function creating(User $user)
     {
         $token = Str::random(80);
-        $status_id = UserStatus::first()->id ?? NULL;
-        $user->setAttribute('api_token', hash('sha256', $token));
-        $user->setAttribute('status_id', $status_id);        
+        $user->setAttribute('api_token', hash('sha256', $token));    
     }
 
     /**
@@ -27,7 +25,9 @@ class UserObserver
     {
         if($user->roles->count() < 1){
             $role = config('cw_user.default_role');
-            $user->roles()->attach($role);
+            if ($role) {
+                $user->roles()->attach($role);
+            }
         }
     }
 

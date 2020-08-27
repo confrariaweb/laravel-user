@@ -11,12 +11,6 @@ Route::middleware(['auth:api'])
             ->namespace('ConfrariaWeb\User\Controllers')
             ->group(function () {
                 //Route::get('datatable', 'UserController@datatable')->name('datatable');
-                Route::get('select2', 'UserController@select2')->name('select2');
-                Route::name('statuses.')
-                    ->prefix('statuses')
-                    ->group(function () {
-                        Route::get('datatable', 'UserStatusController@datatable')->name('datatable');
-                        Route::get('select2', 'UserStatusController@select2')->name('select2');
-                    });
+                //Route::get('select2', 'UserController@select2')->name('select2');
             });
     });

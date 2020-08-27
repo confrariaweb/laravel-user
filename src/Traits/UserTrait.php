@@ -3,6 +3,7 @@
 namespace ConfrariaWeb\User\Traits;
 
 use ConfrariaWeb\Entrust\Traits\EntrustTrait;
+use ConfrariaWeb\User\Scopes\UserAccountScope;
 use ConfrariaWeb\User\Scopes\UserOrderByScope;
 use Illuminate\Support\Facades\Config;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
@@ -14,9 +15,11 @@ trait UserTrait
 
     protected static function booted()
     {
+        static::addGlobalScope(new UserAccountScope);
         static::addGlobalScope(new UserOrderByScope);
     }
 
+    /*
     public function options()
     {
         return $this->hasManyDeep(
@@ -38,25 +41,11 @@ trait UserTrait
             ]
         )->distinct();
     }
+    */
 
     public function isAdmin()
     {
-        return $this->roles->contains('name', 'admin');
-    }
-
-    /*
-     * Etapas em que o usuario se encontra no CRM
-     * Metodo utilizado somente quando conter
-     * o pacote "confrariaweb/laravel-crm".
-     */
-    public function steps()
-    {
-        return $this->belongsToMany('ConfrariaWeb\Crm\Models\Step', 'crm_step_user');
-    } 
-
-    public function status()
-    {
-        return $this->belongsTo('ConfrariaWeb\User\Models\UserStatus', 'status_id');
+        return $this->roles->contains('name', 'administrator');
     }
 
     /**
@@ -65,7 +54,7 @@ trait UserTrait
      */
     public function indications()
     {
-        return $this->belongsToMany('App\User', 'user_indications', 'user_id', 'indicated_id');
+        return $this->belongsToMany('App\User', 'user_indications', 'indicator_id', 'indicated_id');
     }
 
     /**
@@ -74,7 +63,7 @@ trait UserTrait
      */
     public function indicator()
     {
-        return $this->belongsToMany('App\User', 'user_indications', 'indicated_id', 'user_id');
+        return $this->belongsToMany('App\User', 'user_indications', 'indicated_id', 'indicator_id');
     }
 
     /**

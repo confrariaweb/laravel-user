@@ -12,10 +12,9 @@ class AlterUsersTable extends Migration
         if (Schema::hasTable('users')) {
             Schema::table('users', function (Blueprint $table) {
 
-                $table->unsignedBigInteger('status_id')
+                $table->unsignedBigInteger('status')
                     ->after('id')
-                    ->nullable()
-                    ->default(null);
+                    ->default(1);
 
                 $table->text('settings')
                     ->nullable()
@@ -32,11 +31,6 @@ class AlterUsersTable extends Migration
                     ->unique()
                     ->nullable()
                     ->default(null);
-
-                $table->foreign('status_id')
-                    ->references('id')
-                    ->on('user_statuses')
-                    ->onDelete('cascade');
 
                 $table->softDeletes();
             });

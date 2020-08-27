@@ -16,8 +16,7 @@
 
     <div class="col-3">
         <div class="form-group">
-            <label class="">{{ __('user::views.status') }} <span class="required"> * </span></label>
-            {{ Form::select('status_id', $statuses, isset($user) ? $user->status_id : null, ['class' => 'form-control']) }}
+            
         </div>
     </div>
 
@@ -48,11 +47,11 @@
             {{ Form::select('sync[roles][]', $roles, isset($user) ? $user->roles()->pluck('id') : null, ['class' => 'form-control', 'multiple' => true]) }}
         </div>
     </div>
-
-    <div class="col-12">
-        <div class="form-group">
-
-        </div>
-    </div>
-
 </div>
+    <div class="row">
+        <div class="col-12">
+            {!! Form::submit('Salvar') !!}
+        </div>
+    </div> 
+
+
