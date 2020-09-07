@@ -3,7 +3,6 @@
 namespace ConfrariaWeb\User\Providers;
 
 use App\User;
-//use Collective\Html\FormFacade as Form;
 use ConfrariaWeb\User\Commands\CheckPackage;
 use ConfrariaWeb\User\Contracts\UserContract;
 use ConfrariaWeb\User\Observers\UserObserver;
@@ -42,8 +41,6 @@ class UserServiceProvider extends ServiceProvider
         $this->publishes([__DIR__ . '/../../config/cw_user.php' => config_path('cw_user.php')], 'config');
         $this->publishes([__DIR__ . '/../../public/' => public_path('vendor/laravel-user/')], 'public');
         $this->registerSeedsFrom(__DIR__.'/../../databases/Seeds');
-
-        //Form::component('selectUser', 'user::components.form.select_user', ['name', 'value' => null, 'attributes' => ['class' => 'form-control'], 'route' => NULL]);
 
         User::observe(UserObserver::class);
     }

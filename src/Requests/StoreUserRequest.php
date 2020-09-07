@@ -2,43 +2,30 @@
 
 namespace ConfrariaWeb\User\Requests;
 
-use ConfrariaWeb\User\Rules\UserPasswordStore;
-use ConfrariaWeb\Vendor\Rules\JustFull;
-use App\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class StoreUserRequest extends FormRequest
 {
 
     public function authorize()
     {
-        return true;
+        return Auth::user()->hasPermission('admin.users.create') || Auth::user()->isAdmin();
     }
 
     public function rules()
     {
         return [
             'name' => 'required',
-            'status_id' => 'required|integer',
+            'email' => 'unique:App\User,email',
+            'password' => 'required|confirmed|min:6',
             'sync.roles' => 'required',
-            'email' => [
-                'required',
-                'email',
-                new JustFull,
-                function ($attribute, $value, $fail) {
-                    if (!is_null($value) && !empty($value) && User::where($attribute, $value)->exists()) {
-                        $fail($attribute . ' already exists.');
-                    }
-                },
-            ],
-            'password' => [
-                new UserPasswordStore
-            ],
         ];
     }
 
     public function messages()
     {
-        return config('cw_user.request.messages')?? [];
+        return config('cw_user.request.messages') ?? [];
     }
 }

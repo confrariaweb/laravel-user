@@ -2,7 +2,6 @@
 
 namespace ConfrariaWeb\User\Scopes;
 
-use Auth;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -19,9 +18,8 @@ class UserAccountScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        if (!app()->runningInConsole() && existsAccount()) {
-            $accountID = Cache::get('accountID');
-            $builder->where('users.account_id', $accountID);
+        if (!app()->runningInConsole() && existsAccount() && Cache::has('accountID')) {
+            $builder->where('users.account_id', Cache::get('accountID'));
         }
     }
 }

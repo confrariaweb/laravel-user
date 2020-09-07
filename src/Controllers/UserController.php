@@ -28,34 +28,41 @@ class UserController extends Controller
         return back()->withInput()->with('status', 'Token alterado com sucesso');
     }
 
-    public function datatables(){
+    public function datatables()
+    {
         $users = resolve('UserService')->all();
         return Datatables::of($users)
-        ->addColumn('roles', function (User $user) {
-            return $user->roles->map(function($role) {
-                return $role->display_name;
-            })->implode('<br>');
-        })
-        ->addColumn('action', function ($user) {
-            return '<div class="btn-group btn-group-sm float-right" role="group">
-                <a href="'.route('admin.users.show', $user->id).'" class="btn btn-sm btn-info">
+            ->editColumn('created_at', function (User $user) {
+                return $user->created_at ? $user->created_at->format('d/m/Y') : NULL;
+            })
+            ->editColumn('updated_at', function (User $user) {
+                return $user->updated_at ? $user->updated_at->format('d/m/Y') : NULL;
+            })
+            ->addColumn('roles', function (User $user) {
+                return $user->roles->map(function ($role) {
+                    return $role->display_name;
+                })->implode('<br>');
+            })
+            ->addColumn('action', function (User $user) {
+                return '<div class="btn-group btn-group-sm float-right" role="group">
+                <a href="' . route('admin.users.show', $user->id) . '" class="btn btn-sm btn-info">
                     <i class="glyphicon glyphicon-eye"></i> Ver
                 </a>
-                <a href="'.route('admin.users.edit', $user->id).'" class="btn btn-sm btn-primary">
+                <a href="' . route('admin.users.edit', $user->id) . '" class="btn btn-sm btn-primary">
                     <i class="glyphicon glyphicon-edit"></i> Editar
                 </a>
-                <a class="btn btn-sm btn-danger" href="'.route('admin.users.destroy', $user->id).'" onclick="event.preventDefault();
+                <a class="btn btn-sm btn-danger" href="' . route('admin.users.destroy', $user->id) . '" onclick="event.preventDefault();
                     document.getElementById(\'users-destroy-form\').submit();">
                     Deletar
                 </a>
-                <form id="users-destroy-form" action="'.route('admin.users.destroy', $user->id).'" method="POST" style="display: none;">
+                <form id="users-destroy-form" action="' . route('admin.users.destroy', $user->id) . '" method="POST" style="display: none;">
                     @csrf
                     @method(\'DELETE\')
-                    <input type="hidden" name="id" value="'.$user->id.'">
+                    <input type="hidden" name="id" value="' . $user->id . '">
                 </form>
             </div>';
-        })
-        ->make();
+            })
+            ->make();
     }
 
     public function select2(Request $request)
@@ -93,13 +100,13 @@ class UserController extends Controller
 
     public function show($id, $page = 'overview')
     {
-        $this->data['user'] = resolve('UserService')->find($id);
+        $this->data['user'] = resolve('UserService')->findOrFail($id);
         return view(config('cw_user.views') . 'users.show', $this->data);
     }
 
     public function edit($id)
     {
-        $this->data['user'] = resolve('UserService')->find($id);
+        $this->data['user'] = resolve('UserService')->findOrFail($id);
         return view(config('cw_user.views') . 'users.edit', $this->data);
     }
 

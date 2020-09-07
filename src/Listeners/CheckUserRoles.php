@@ -2,12 +2,10 @@
 
 namespace ConfrariaWeb\User\Listeners;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Support\Facades\Cache;
 
-class CreateAccountCache
+class CheckUserRoles
 {
     /**
      * Create the event listener.
@@ -27,9 +25,12 @@ class CreateAccountCache
      */
     public function handle($event)
     {
-        Cache::forget('accountID');
-        if(existsAccount()){
-            Cache::put('accountID', Auth::user()->account_id, now()->addMinutes(600));
+        $user = $event->user;
+        if($user->roles->count() < 1){
+            $role = config('cw_user.default_role');
+            if ($role) {
+                $user->roles()->attach($role);
+            }
         }
     }
 }

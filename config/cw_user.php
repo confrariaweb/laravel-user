@@ -6,6 +6,11 @@ return [
 
     'default_role' => 2,
 
+    'options' => [
+        ['type' => 'file', 'name' => 'avatar', 'label' => 'Avatar'],
+        ['type' => 'text', 'name' => 'cof_cnpj', 'label' => 'CPF/CNPJ'],
+    ],
+
     'request' => [
         'messages' => [
             'name.required' => 'O nome é necessário para criar um novo registro',

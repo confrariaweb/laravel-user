@@ -4,6 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
+                <x-alert/>
                 {!! Form::open(['route' => 'admin.users.store', 'files' => true, 'class' => 'horizontal-form']) !!}
                     @include('user::users.partials.form')
                 {!! Form::close() !!}

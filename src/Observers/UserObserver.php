@@ -23,12 +23,7 @@ class UserObserver
      */
     public function created(User $user)
     {
-        if($user->roles->count() < 1){
-            $role = config('cw_user.default_role');
-            if ($role) {
-                $user->roles()->attach($role);
-            }
-        }
+
     }
 
     /**

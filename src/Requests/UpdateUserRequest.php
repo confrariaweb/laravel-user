@@ -1,11 +1,13 @@
 <?php
+
 namespace ConfrariaWeb\User\Requests;
 
 use App\User;
-use ConfrariaWeb\User\Rules\OldDifferentPassword;
 use ConfrariaWeb\User\Rules\UserPasswordUpdate;
-use ConfrariaWeb\Vendor\Rules\JustFull;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Validation\Rule;
 
 class UpdateUserRequest extends FormRequest
 {
@@ -16,8 +18,11 @@ class UpdateUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        $user = User::find($this->route()->parameter('user'));
+        $accountUser = existsAccount() ? (Cache::get('accountID') === $user->account_id) : true;
+        return (Auth::user()->hasPermission('admin.users.edit') && $accountUser) || Auth::user()->isAdmin();
     }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -27,23 +32,17 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'status_id' => 'required|integer',
-            'sync.roles' => 'required',
             'email' => [
                 'required',
-                'email',
-                new JustFull,
-                function ($attribute, $value, $fail) {
-                    if (!is_null($value) && !empty($value) && User::where($attribute, $value)->whereNotIn('id', [$this->user])->exists()) {
-                        $fail($attribute.' already exists.');
-                    }
-                },
+                Rule::unique('users')->ignore($this->route()->parameter('user')),
             ],
             'password' => [
                 new UserPasswordUpdate()
             ],
+            'sync.roles' => 'required',
         ];
     }
+
     /**
      * Get the error messages for the defined validation rules.
      *
@@ -51,6 +50,6 @@ class UpdateUserRequest extends FormRequest
      */
     public function messages()
     {
-        return config('cw_user.request.messages')?? [];
+        return config('cw_user.request.messages') ?? [];
     }
 }
