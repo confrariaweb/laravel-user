@@ -4,7 +4,7 @@ namespace ConfrariaWeb\User\Events;
 
 use ConfrariaWeb\User\Historics\UserDeletedHistoric;
 use App\Notifications\UserDeletedNotification;
-use App\User;
+use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;

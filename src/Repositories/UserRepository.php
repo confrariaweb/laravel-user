@@ -2,7 +2,7 @@
 
 namespace ConfrariaWeb\User\Repositories;
 
-use App\User;
+use App\Models\User;
 use ConfrariaWeb\User\Contracts\UserContract;
 use ConfrariaWeb\Vendor\Traits\RepositoryTrait;
 use Illuminate\Database\Eloquent\Builder;

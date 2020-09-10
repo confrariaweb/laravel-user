@@ -2,7 +2,7 @@
 
 namespace ConfrariaWeb\User\Providers;
 
-use App\User;
+use App\Models\User;
 use ConfrariaWeb\User\Commands\CheckPackage;
 use ConfrariaWeb\User\Contracts\UserContract;
 use ConfrariaWeb\User\Observers\UserObserver;

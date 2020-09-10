@@ -2,7 +2,7 @@
 
 namespace ConfrariaWeb\User\Requests;
 
-use App\User;
+use App\Models\User;
 use ConfrariaWeb\User\Rules\UserPasswordUpdate;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;

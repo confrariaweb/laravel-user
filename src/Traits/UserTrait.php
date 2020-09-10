@@ -30,7 +30,7 @@ trait UserTrait
      */
     public function indications()
     {
-        return $this->belongsToMany('App\User', 'user_indications', 'indicator_id', 'indicated_id');
+        return $this->belongsToMany('App\Models\User', 'user_indications', 'indicator_id', 'indicated_id');
     }
 
     /**
@@ -39,7 +39,7 @@ trait UserTrait
      */
     public function indicator()
     {
-        return $this->belongsToMany('App\User', 'user_indications', 'indicated_id', 'indicator_id');
+        return $this->belongsToMany('App\Models\User', 'user_indications', 'indicated_id', 'indicator_id');
     }
 
     /**

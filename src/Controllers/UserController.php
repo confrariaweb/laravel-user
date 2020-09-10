@@ -9,7 +9,7 @@ use ConfrariaWeb\User\Resources\UserResource;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
-use App\User;
+use App\Models\User;
 use Collective\Html\Eloquent\FormAccessible;
 
 class UserController extends Controller

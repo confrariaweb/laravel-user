@@ -18,7 +18,7 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'email' => 'unique:App\User,email',
+            'email' => 'unique:App\Models\User,email',
             'password' => 'required|confirmed|min:6',
             'sync.roles' => 'required',
         ];

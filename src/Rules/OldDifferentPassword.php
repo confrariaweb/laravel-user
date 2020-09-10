@@ -2,7 +2,7 @@
 
 namespace ConfrariaWeb\User\Rules;
 
-use App\User;
+use App\Models\User;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
 

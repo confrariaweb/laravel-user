@@ -18,19 +18,16 @@ class AlterUsersTable extends Migration
 
                 $table->text('settings')
                     ->nullable()
-                    ->default(null)
-                    ->after('email');
+                    ->after('remember_token');
 
                 $table->text('options')
                     ->nullable()
-                    ->default(null)
                     ->after('settings');
 
                 $table->string('api_token', 80)
-                    ->after('password')
                     ->unique()
                     ->nullable()
-                    ->default(null);
+                    ->after('options');
 
                 $table->softDeletes();
             });

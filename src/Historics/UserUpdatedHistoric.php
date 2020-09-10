@@ -1,7 +1,7 @@
 <?php
 namespace ConfrariaWeb\User\Historics;
 
-use App\User;
+use App\Models\User;
 use ConfrariaWeb\Historic\Contracts\HistoricContract;
 
 class UserUpdatedHistoric implements HistoricContract

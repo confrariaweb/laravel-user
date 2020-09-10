@@ -35,7 +35,7 @@ class CheckPackage extends Command
     {
         parent::__construct();
         $this->allRight = true;
-        $this->tables = ['users' => ['id', 'status_id', 'name', 'email', 'settings', 'api_token',]];
+        $this->tables = ['users' => ['id', 'status', 'name', 'email', 'settings', 'options', 'api_token',]];
     }
 
     /**
