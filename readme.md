@@ -36,7 +36,7 @@ use  UserTrait;
 * @var  array  
 */  
   
-protected $fillable = ['name', 'email', 'password', 'status', 'settings',  'options', 'api_token'
+protected $fillable = ['name', 'email', 'password', 'status', 'settings',  'options', 'account_id'
 ];  
   
 /**  
@@ -58,12 +58,13 @@ protected $casts = ['email_verified_at' => 'datetime',
   
 }  
 ```  
+The value for "account_id" should only be included in the array if using the laravel cw accounts package
 ##Check package  
 To verify that the package is installed correctly use the following artisan command:  
 ```php  
 php artisan user:check-package  
 ```  
-## Entrust Permissions  
+## Acl Permissions  
   
  - admin.users.index = Visualiza usuários  
  - admin.users.edit = Editar Usuários  

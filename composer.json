@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "confrariaweb/laravel-entrust": "dev-master",
+        "confrariaweb/laravel-acl": "dev-master",
         "confrariaweb/laravel-option": "dev-master",
         "confrariaweb/laravel-vendor": "dev-master",
         "laravelcollective/html": ">=6.0",

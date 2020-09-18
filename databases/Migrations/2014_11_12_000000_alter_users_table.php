@@ -24,10 +24,10 @@ class AlterUsersTable extends Migration
                     ->nullable()
                     ->after('settings');
 
-                $table->string('api_token', 80)
+                /*$table->string('api_token', 80)
                     ->unique()
                     ->nullable()
-                    ->after('options');
+                    ->after('options');*/
 
                 $table->softDeletes();
             });

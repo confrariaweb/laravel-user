@@ -2,6 +2,7 @@
 
 namespace ConfrariaWeb\User\Databases\Seeds;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
@@ -28,15 +29,17 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Rafael Zingano',
                 'email' => 'rafazingano@gmail.com',
                 'password' => Hash::make('secret'),
-                'account_id' => 1,
                 'email_verified_at' => Carbon::now(),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]
         ];
+        if(existsAccount()) {
+            $users[0]['account_id'] = 1;
+        }
         foreach ($users as $user) {
-            if (DB::table('users')->where('email', $user['email'])->doesntExist()) {
-                DB::table('users')->insert($user);
+            if(User::where('id', 1)->doesntExist()){
+                User::create($user);
             }
         }
     }

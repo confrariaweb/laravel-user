@@ -22,8 +22,8 @@ class UserRepository implements UserContract
         $this->obj = $this->obj
             ->when(('roles' == $order), function ($query) use ($order, $by) {
                 return $query
-                    ->leftJoin(Config::get('cw_entrust.role_user_table') . ' AS orderByRoleUser', 'users.id', '=', 'orderByRoleUser.user_id')
-                    ->leftJoin(Config::get('cw_entrust.roles_table') . ' AS orderByRoles', 'orderByRoleUser.role_id', '=', 'orderByRoles.id');
+                    ->leftJoin(Config::get('cw_acl.role_user_table') . ' AS orderByRoleUser', 'users.id', '=', 'orderByRoleUser.user_id')
+                    ->leftJoin(Config::get('cw_acl.roles_table') . ' AS orderByRoles', 'orderByRoleUser.role_id', '=', 'orderByRoles.id');
             })
             ->when(in_array($order, ['name', 'email', 'id']), function ($query) use ($order, $by) {
                 return $query->orderBy($order, $by);

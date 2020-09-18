@@ -2,7 +2,7 @@
 
 namespace ConfrariaWeb\User\Traits;
 
-use ConfrariaWeb\Entrust\Traits\EntrustUserTrait;
+use ConfrariaWeb\Acl\Traits\AclUserTrait;
 use ConfrariaWeb\User\Scopes\UserAccountScope;
 use ConfrariaWeb\User\Scopes\UserOrderByScope;
 use Illuminate\Support\Facades\Config;
@@ -11,7 +11,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 trait UserTrait
 {
     use HasRelationships;
-    use EntrustUserTrait;
+    use AclUserTrait;
 
     protected static function booted()
     {
@@ -21,7 +21,7 @@ trait UserTrait
 
     public function isAdmin()
     {
-        return in_array($this->email, Config::get('cw_entrust.administrator.emails'));
+        return in_array($this->email, Config::get('cw_acl.administrator.emails'));
     }
 
     /**
