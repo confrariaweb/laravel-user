@@ -17,11 +17,11 @@
     ],
     "require": {
         "confrariaweb/laravel-acl": "dev-master",
-        "confrariaweb/laravel-option": "dev-master",
+
         "confrariaweb/laravel-vendor": "dev-master",
         "laravelcollective/html": ">=6.0",
         "yajra/laravel-datatables-oracle": "~9.0",
-        "staudenmeir/eloquent-has-many-deep" : ">=1.11"
+        "staudenmeir/eloquent-has-many-deep" : ">=1.13"
     },
     "autoload": {
         "psr-4": {

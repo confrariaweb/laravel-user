@@ -11,8 +11,8 @@ class UserObserver
     
     public function creating(User $user)
     {
-        $token = Str::random(80);
-        $user->setAttribute('api_token', hash('sha256', $token));    
+        //$token = Str::random(80);
+        //$user->setAttribute('api_token', hash('sha256', $token));
     }
 
     /**

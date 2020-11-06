@@ -39,7 +39,7 @@ class UserController extends Controller
                 return $user->updated_at ? $user->updated_at->format('d/m/Y') : NULL;
             })
             ->addColumn('roles', function (User $user) {
-                return $user->roles->map(function ($role) {
+                return !$user->roles? NULL : $user->roles->map(function ($role) {
                     return $role->display_name;
                 })->implode('<br>');
             })
@@ -65,14 +65,6 @@ class UserController extends Controller
             ->make();
     }
 
-    public function select2(Request $request)
-    {
-        $data = $request->all();
-        $data['name'] = isset($data['term']) ? $data['term'] : NULL;
-        $users = resolve('UserService')->where($data)->get();
-        return Select2UserResource::collection($users);
-    }
-
     public function index(Request $request)
     {
         $this->data['get'] = array_filter($request->all(), function ($e) {
@@ -82,7 +74,7 @@ class UserController extends Controller
             return $e;
         });
         $this->data['roles'] = resolve('RoleService')->all();
-        return view(config('cw_user.views') . 'users.index', $this->data);
+        return view(cwView('users.index', true), $this->data);
     }
 
     public function create()

@@ -40,7 +40,7 @@ class UserServiceProvider extends ServiceProvider
         $this->loadTranslationsFrom(__DIR__ . '/../Translations', 'user');
         $this->publishes([__DIR__ . '/../../config/cw_user.php' => config_path('cw_user.php')], 'config');
         $this->publishes([__DIR__ . '/../../public/' => public_path('vendor/laravel-user/')], 'public');
-        $this->registerSeedsFrom(__DIR__.'/../../databases/Seeds');
+        //$this->registerSeedsFrom(__DIR__.'/../../databases/Seeds');
 
         User::observe(UserObserver::class);
     }

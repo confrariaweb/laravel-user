@@ -9,6 +9,7 @@ class CreateUsersOptionsTable extends Migration
 
     public function up()
     {
+        /*
         if (!Schema::hasTable('option_user') && Schema::hasTable('options')) {
 
             Schema::create('option_user', function (Blueprint $table) {
@@ -27,6 +28,7 @@ class CreateUsersOptionsTable extends Migration
             });
 
         }
+        */
     }
 
     public function down()

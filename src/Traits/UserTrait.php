@@ -15,8 +15,8 @@ trait UserTrait
 
     protected static function booted()
     {
-        static::addGlobalScope(new UserAccountScope);
-        static::addGlobalScope(new UserOrderByScope);
+        //static::addGlobalScope(new UserAccountScope);
+        //static::addGlobalScope(new UserOrderByScope);
     }
 
     public function isAdmin()
