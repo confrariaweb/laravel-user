@@ -18,8 +18,9 @@ class UserAccountScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        if (!app()->runningInConsole() && existsAccount() && Cache::has('accountID')) {
-            $builder->where('users.account_id', Cache::get('accountID'));
+        if (!app()->runningInConsole() && existsAccount() && account()) {
+            $account = account();
+            $builder->where('users.account_id', $account->id);
         }
     }
 }

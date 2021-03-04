@@ -33,4 +33,13 @@ class UserService
         return $data;
     }
 
+    public function executeAfter(array $data, $obj = NULL)
+    {
+        if ($obj->roles->count() < 1) {
+            $role = config('cw_user.default_role');
+            if ($role) {
+                $obj->roles()->attach($role);
+            }
+        }
+    }
 }

@@ -4,19 +4,19 @@ namespace ConfrariaWeb\User\Listeners;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Http\Request;
 
-
-class CreateAccountCache
+class CreateAccountSession
 {
+    protected $request;
     /**
      * Create the event listener.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
-        //
+        $this->request = $request;
     }
 
     /**
@@ -27,12 +27,12 @@ class CreateAccountCache
      */
     public function handle($event)
     {
-        if (Cache::has('account')) {
-            Cache::forget('account');
+        if ($this->request->session()->exists('account')) {
+            $this->request->session()->forget('account');
         }
         if(existsAccount()){
             $account = $event->user->accounts()->first();
-            Cache::put('account', $account);
+            $this->request->session()->put('account', $account);
         }
     }
 }

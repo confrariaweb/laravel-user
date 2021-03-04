@@ -2,19 +2,20 @@
 
 namespace ConfrariaWeb\User\Listeners;
 
+use Illuminate\Http\Request;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class CheckUserRoles
+class DestroyAccountSession
 {
     /**
      * Create the event listener.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
-        //
+        $this->request = $request;
     }
 
     /**
@@ -25,12 +26,8 @@ class CheckUserRoles
      */
     public function handle($event)
     {
-        $user = $event->user;
-        if($user->roles->count() < 1){
-            $role = config('cw_user.default_role');
-            if ($role) {
-                $user->roles()->attach($role);
-            }
+        if ($this->request->session()->exists('account')) {
+            $this->request->session()->forget('account');
         }
     }
 }

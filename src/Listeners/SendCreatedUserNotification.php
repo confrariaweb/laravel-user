@@ -2,12 +2,11 @@
 
 namespace ConfrariaWeb\User\Listeners;
 
+use ConfrariaWeb\User\Notifications\UserCreated;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Support\Facades\Cache;
 
-
-class CreateAccountCache
+class SendCreatedUserNotification
 {
     /**
      * Create the event listener.
@@ -27,12 +26,6 @@ class CreateAccountCache
      */
     public function handle($event)
     {
-        if (Cache::has('account')) {
-            Cache::forget('account');
-        }
-        if(existsAccount()){
-            $account = $event->user->accounts()->first();
-            Cache::put('account', $account);
-        }
+        $event->user->notify(new UserCreated());
     }
 }

@@ -18,8 +18,9 @@ class UpdateUserRequest extends FormRequest
      */
     public function authorize()
     {
+        $account = account();
         $user = User::find($this->route()->parameter('user'));
-        $accountUser = existsAccount() ? (Cache::get('accountID') === $user->account_id) : true;
+        $accountUser = existsAccount() ? ($account->id === $user->account_id) : true;
         return (Auth::user()->hasPermission('admin.users.edit') && $accountUser) || Auth::user()->isAdmin();
     }
 

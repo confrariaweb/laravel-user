@@ -15,7 +15,7 @@ class DestroyAccountCache
      */
     public function __construct()
     {
-        //
+
     }
 
     /**
@@ -26,6 +26,8 @@ class DestroyAccountCache
      */
     public function handle($event)
     {
-        Cache::forget('accountID');
+        if (Cache::has('account')) {
+            Cache::forget('account');
+        }
     }
 }
